@@ -52,7 +52,7 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
     }
 
     _nameController.addListener(() {
-      // unneeded listener and setState
+      // this listener is needed only for the GroceryItem preview
       setState(() {
         _name = _nameController.text;
       });
