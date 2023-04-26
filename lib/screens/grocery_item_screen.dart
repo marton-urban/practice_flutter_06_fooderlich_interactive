@@ -17,7 +17,7 @@ class GroceryItemScreen extends StatefulWidget {
     required this.onCreate,
     required this.onUpdate,
     this.originalItem,
-  })  : isUpdating = (originalItem != null);
+  }) : isUpdating = (originalItem != null);
 
   @override
   GroceryItemScreenState createState() => GroceryItemScreenState();
@@ -44,11 +44,15 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
       _importance = originalItem.importance;
       _currentColor = originalItem.color;
       final date = originalItem.date;
-      _timeOfDay = TimeOfDay(hour: date.hour, minute: date.minute,);
+      _timeOfDay = TimeOfDay(
+        hour: date.hour,
+        minute: date.minute,
+      );
       _dueDate = date;
     }
 
     _nameController.addListener(() {
+      // unneeded listener and setState
       setState(() {
         _name = _nameController.text;
       });
@@ -67,35 +71,36 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
       appBar: AppBar(
         actions: [
           IconButton(
-              icon: const Icon(Icons.check),
-              onPressed: () {
-                final groceryItem = GroceryItem(
-                    id: widget.originalItem?.id ?? const Uuid().v1(),
-                    name: _nameController.text,
-                    importance: _importance,
-                    color: _currentColor,
-                    quantity: _currentSliderValue,
-                    date: DateTime(
-                      _dueDate.year,
-                      _dueDate.month,
-                      _dueDate.day,
-                      _timeOfDay.hour,
-                      _timeOfDay.minute,
-                    ),
-                );
+            icon: const Icon(Icons.check),
+            onPressed: () {
+              final groceryItem = GroceryItem(
+                id: widget.originalItem?.id ?? const Uuid().v1(),
+                name: _nameController.text,
+                importance: _importance,
+                color: _currentColor,
+                quantity: _currentSliderValue,
+                date: DateTime(
+                  _dueDate.year,
+                  _dueDate.month,
+                  _dueDate.day,
+                  _timeOfDay.hour,
+                  _timeOfDay.minute,
+                ),
+              );
 
-                if (widget.isUpdating) {
-                  widget.onUpdate(groceryItem);
-                } else {
-                  widget.onCreate(groceryItem);
-                }
-              },)
+              if (widget.isUpdating) {
+                widget.onUpdate(groceryItem);
+              } else {
+                widget.onCreate(groceryItem);
+              }
+            },
+          )
         ],
         elevation: 0.0,
         title: Text(
           'Grocery Item',
           style: GoogleFonts.lato(fontWeight: FontWeight.w600),
-                  ),
+        ),
       ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
