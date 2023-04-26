@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'models/models.dart';
 
 class Home extends StatefulWidget {
+  //  DOES NOT NEED TO BE STATEFUL!!!
   const Home({super.key});
 
   @override
